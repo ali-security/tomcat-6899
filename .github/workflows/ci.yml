@@ -14,8 +14,6 @@ name: Smoke Test
 
 on:
   push:
-    branches:
-      - 10.1.x
   pull_request:
     branches:
       - 10.1.x
