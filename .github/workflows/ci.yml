@@ -40,6 +40,16 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
+    - name: Test org.apache.tomcat.util.net.TestClientCertTls13
+      run: |
+        ant -noinput -Dtest.entry=org.apache.catalina.valves.rewrite.TestResolverSSL test-nio
+      env:
+        ANT_OPTS: -Dtest.openssl.exists=false
+      continue-on-error:
+        true
+    - name: Print test results
+      run: |
+        cat output/build/logs/TEST-org.apache.catalina.valves.rewrite.TestResolverSSL.txt
     - name: Build
       run: |
         ant -noinput echoproperties deploy embed test-nio test-status
